@@ -1,5 +1,8 @@
 import 'dotenv/config'
 import express from 'express'
+import * as path from 'path'
+import { __dirname } from "./path.js"
+import { Engine } from 'express-handlebars'
 import  socket  from 'socket.io'
 import { getManagerMessages } from './dao/daoManager.js'
 
@@ -11,6 +14,14 @@ app.use(express.urlencoded({extended:true}))
 
 app.set("port",process.env.PORT || 8080 )
 
+app.engine('handlebars', engine({
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+        allowProtoMethodsByDefault: true,
+    }
+}))
+app.set('view engine', 'handlebars')
+app.set('views', path.resolve(__dirname, "./views"))
 
 const server = app.listen(app.get("port", () => console.log(`Server on port ${app.get("port")}`)))
 

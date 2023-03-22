@@ -1,5 +1,6 @@
 import { Schema } from "mongoose";
 import { ManagerMongoDB } from "../../../db/managerMongoDB.js";
+import { ManagerProductMongoDB } from "./Product.js";
 
 const url = process.env.URLMONGODB
 const cart = await this.model.findById(id)
@@ -14,10 +15,10 @@ const cartSchema = new Schema ({
 })
 
 
-export class ManagerMessageMongoDB extends ManagerMongoDB {
+export class ManagerCartMongoDB extends ManagerMongoDB {
     constructor() {
 
-        super(url, "message", messageSchema)
+        super(url, "cart", cartSchema)
         
     }
     
@@ -54,3 +55,4 @@ export class ManagerMessageMongoDB extends ManagerMongoDB {
         }
     }
 }
+export default ManagerCartMongoDB

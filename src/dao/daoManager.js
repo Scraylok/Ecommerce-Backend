@@ -11,3 +11,8 @@ export const getManagerProducts = async () => {
     await import('')
     return productModel
 }
+export const getManagerCart = async() => {
+    const cartModel = selectedDB === 1 ? await import('./MongoDB/models/Cart.js') :
+    await import('')
+    return cartModel
+}
