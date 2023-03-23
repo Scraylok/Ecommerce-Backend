@@ -46,7 +46,13 @@ export class ManagerProductMongoDB extends ManagerMongoDB {
     }
     async getProducts(limit, page, filter, ord) {
         super.setconnection()
-        const products = await this.model.paginate()
+        try {
+            const options = { limit: limit, page: page, sort: { price: ord } };
+            const products = await this.model.paginate(filter, options);
+            return products;
+          } catch (error) {
+            return error;
+          }
     }
 
 }
