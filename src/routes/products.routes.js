@@ -2,9 +2,11 @@ import { Router } from "express";
 import { getManagerProducts } from "../dao/daoManager.js";
 
 
-const routerProduct = Router()
-const data = await getManagerProducts()
-const productManager = new data.ManagerProductMongoDB()
+
+
+const routerProduct = Router();
+const data = await getManagerProducts();
+const productManager = new data.ManagerProductMongoDB();
 
 routerProduct.get('/', async (req, res) => { 
     try {
