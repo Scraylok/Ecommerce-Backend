@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export class ManagerMongoDB {
+class ManagerMongoDB {
 
     url
     constructor(url, collection, schema){
@@ -66,3 +66,4 @@ export class ManagerMongoDB {
     }
 }
 
+export default ManagerMongoDB
