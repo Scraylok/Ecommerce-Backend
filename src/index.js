@@ -10,9 +10,7 @@ import routerCart from './routes/cart.routes.js'
 import MongoStore from 'connect-mongo'
 
 const app = express()
-const data = await getManagerMessages();
-const managerMessage = new data.ManagerMessageMongoDB;
-//Midlewares
+
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 //Port
