@@ -1,4 +1,4 @@
-import { Schema,model } from "mongoose";
+import { Schema } from "mongoose";
 import { ManagerMongoDB } from "../../../db/managerMongoDB.js";
 import paginate from 'mongoose-paginate-v2'
 
@@ -40,10 +40,8 @@ productSchema.plugin(paginate)
 
 export class ManagerProductMongoDB extends ManagerMongoDB {
     constructor() {
-
         super(url, "products", productSchema)
-        
-    }
+        }
     async getProducts(limit, page, filter, ord) {
         super.setconnection()
         try {
@@ -56,3 +54,4 @@ export class ManagerProductMongoDB extends ManagerMongoDB {
     }
 
 }
+

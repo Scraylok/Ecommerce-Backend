@@ -1,4 +1,4 @@
-import { ManagerMongoDB } from "../../../db/managerMongoDB";
+import { ManagerMongoDB } from "../../../db/managerMongoDB.js";
 import {Schema, model} from "mongoose";
 
 const url = process.env.URLMONGODB
@@ -35,10 +35,8 @@ const userSchema = new Schema({
 
 // const userModel = model('Users', userSchema);
 // export default userModel
-class ManagerUserMongoDB extends ManagerMongoDB {
+export class ManagerUserMongoDB extends ManagerMongoDB {
   constructor() {
       super(url, "users", userSchema)
   }
 }
-
-export default ManagerUserMongoDB

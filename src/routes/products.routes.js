@@ -1,12 +1,14 @@
 import { Router } from "express";
-import { getManagerProducts } from "../dao/daoManager.js";
+import  { getManagerProducts }  from "../dao/daoManager.js";
+import { ManagerProductMongoDB } from "../dao/MongoDB/models/Product.js";
 
 
 
 
 const routerProduct = Router();
-const data = await getManagerProducts();
-const productManager = new data.ManagerProductMongoDB();
+
+const managerData = await getManagerProducts()
+export const productManager = new managerData.ManagerProductMongoDB()
 
 routerProduct.get('/', async (req, res) => { 
     try {
@@ -101,5 +103,4 @@ routerProduct.put('/:id', async (req, res) => {
         });
       }
 })
-
-export default routerProduct
+export default routerProduct;

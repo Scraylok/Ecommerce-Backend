@@ -2,8 +2,9 @@ import { Schema } from "mongoose";
 import { ManagerMongoDB } from "../../../db/managerMongoDB.js";
 import { ManagerProductMongoDB } from "./Product.js";
 
-const url = process.env.URLMONGODB
+
 const cart = await this.model.findById(id)
+const url = process.env.URLMONGODB
 const cartSchema = new Schema ({
     products:[{
         id_prod: {
@@ -55,4 +56,3 @@ export class ManagerCartMongoDB extends ManagerMongoDB {
         }
     }
 }
-export default ManagerCartMongoDB
