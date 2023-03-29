@@ -9,7 +9,9 @@ import { engine } from 'express-handlebars'
 import { getManagerMessages, getManagerProducts, getManagerCart } from './dao/daoManager.js'
 import routerProduct from './routes/products.routes.js'
 import routerCart from './routes/cart.routes.js'
+import routerUser from './routes/user.routes.js'
 import MongoStore from 'connect-mongo'
+import routerSession from './routes/session.routes.js'
 
 const app = express()
 
@@ -17,10 +19,16 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser(process.env.COOKIE_SECRET))
 app.use(session({
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGODBURL,
+        mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
+        ttl: 30
+    }),
+    //store: new fileStore({ path: './sessions', ttl: 10000, retries: 1 }),
     secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true
-}) )
+}))
 //Port
 app.set("port",process.env.PORT || 8080 )
 const server = app.listen(app.get("port", () => console.log(`Server on port ${app.get("port")}`)))
@@ -65,7 +73,9 @@ app.get("/login", (req,res) => {
 
 })
 app.get("/logout", (req,res) =>{
-    req.session.destroy()
+    req.session.destroy(() => {
+        res.send("Sesión finalizada")
+    })
 } )
 
 //Socket io
@@ -95,5 +105,7 @@ app.use("/", express.static(__dirname + "/public"));
 app.get("/chat", (req, res)=>{
     res.render("chat")
 })
+app.use("/user", routerUser)
 app.use("/products", routerProduct)
 app.use("/cart", routerCart)
+app.use("/session", routerSession)

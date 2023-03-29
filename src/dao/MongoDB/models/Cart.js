@@ -1,12 +1,8 @@
+import { ManagerMongoDB } from "../../../db/mongoDBManager.js";
 import { Schema } from "mongoose";
-import { ManagerMongoDB } from "../../../db/managerMongoDB.js";
-import { ManagerProductMongoDB } from "./Product.js";
 
-
-const cart = await this.model.findById(id)
-const url = process.env.URLMONGODB
-const cartSchema = new Schema ({
-    products:[{
+const cartSchema = new Schema({
+    products: [{
         id_prod: {
             type: Schema.Types.ObjectId,
             ref: 'products'
@@ -15,44 +11,56 @@ const cartSchema = new Schema ({
     }]
 })
 
-
 export class ManagerCartMongoDB extends ManagerMongoDB {
     constructor() {
-
-        super(url, "cart", cartSchema)
-        
+        super(process.env.MONGODBURL, "cart", cartSchema)
     }
-    
-    async addProductCart(id) {
-        
+
+    async addProductCart(id, idProd, cant) {
         super.setConnection()
-        try {
-            cart.products.push({ id_prod: idProd, quantity: quant})
-            return cart.save()
-        }catch(error){
-            return error
-        }
+        const carrito = await this.model.findById(id)
+        carrito.products.push({ id_prod: idProd, quantity: cant })
+        return carrito.save()
     }
-    async getProductsCart(){
+
+    async getProductsCart() {
         super.setConnection()
-        try {
-
-            const prods = await this.model.find().populate("products.id_prod")
-            return prods
-            
-        } catch (error) {
-            return error
-        }
+        const prods = await this.model.find().populate("products.id_prod")
+        return prods
     }
 
-    async deleteProductCart(id){
+    async deleteProductCart(id) {
         super.setConnection()
-        try{
-            cart.products.filter(prod => prod._id != id)
-            cart.save()
-            return true
-        }catch(error){
-
-        }
+        const carrito = await this.model.findById(id)
+        carrito.products.filter(prod => prod._id != id)
+        carrito.save()
+        return true
     }
+
+    async deleteProductsCart(id) {
+        super.setConnection()
+        const carrito = await this.model.findById(id)
+        carrito.products = []
+        carrito.save()
+        return true
+    }
+
+    async updateProductCart(id, ...propiedades) {
+        super.setConnection()
+        const carrito = await this.model.findById(id)
+        const aux = { ...propiedades }
+        carrito.products.findIndex(prod => prod._id == id)
+        carrito[index] = aux
+        carrito.save()
+        return true
+    }
+
+    async updateProductsCart(id, products) {
+        super.setConnection()
+        const carrito = await this.model.findById(id)
+        carrito.products = products
+        carrito.save()
+        return true
+    }
+
 }
