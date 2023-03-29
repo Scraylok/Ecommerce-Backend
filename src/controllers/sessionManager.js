@@ -4,7 +4,7 @@ export const getSession = (req, res) => {
             'message': "Bienvenido/a a mi tienda"
         })
     }
-    res.redirect('/api/session/login', 500, {   
+    res.redirect('/session/login', 500, {   
     })
 }
 
@@ -13,11 +13,11 @@ export const testLogin = (req, res) => {
     const { email, password } = req.body
 
     try {
-        if (email == "f@f.com" && password == "1234") {
+        if (email == "Aquilesbailo@gmail.com" && password == "5678") {
             req.session.login = true
             res.redirect('/products', 200)
         } else {
-            res.redirect("/api/session/login", 500, {
+            res.redirect("/session/login", 500, {
             })
         }
 
