@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export class ManagerMongoDB {
-  url;
+  
   constructor(url, collection, schema) {
     this.url = url; 
     this.collection = collection;
@@ -41,10 +41,10 @@ export class ManagerMongoDB {
       return error;
     }
   }
-  async updateElement(id, info) {
+  async updateElement(id, ...info) {
     this.setConnection();
     try {
-      return await this.model.findByIdAndUpdate(id, info);
+      return await this.model.findByIdAndUpdate(id, ...info);
     } catch (error) {
       return error;
     }
@@ -58,3 +58,5 @@ export class ManagerMongoDB {
     }
   }
 }
+
+

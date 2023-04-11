@@ -20,7 +20,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(cookieParser(process.env.COOKIE_SECRET))
 app.use(session({
     store: MongoStore.create({
-        mongoUrl: process.env.MONGODBURL,
+        mongoUrl: process.env.URLMONGODB,
         mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
         ttl: 30
     }),

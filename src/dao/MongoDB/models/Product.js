@@ -15,11 +15,13 @@ const productSchema = new Schema ({
     },
     price: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     category: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     stock:{
         type: Number,
@@ -39,14 +41,14 @@ const productSchema = new Schema ({
 productSchema.plugin(paginate)
 
 export class ManagerProductMongoDB extends ManagerMongoDB {
+    
     constructor() {
         super(url, "products", productSchema)
         }
     async getProducts(limit, page, filter, ord) {
         super.setconnection()
         try {
-            const options = { limit: limit, page: page, sort: { price: ord } };
-            const products = await this.model.paginate(filter, options);
+            const products = await this.model.paginate({ filter: filter }, { limit: limit, page: page, sort: { price: ord } })
             return products;
           } catch (error) {
             return error;
@@ -54,4 +56,4 @@ export class ManagerProductMongoDB extends ManagerMongoDB {
     }
 
 }
-
+console.log(ManagerProductMongoDB)

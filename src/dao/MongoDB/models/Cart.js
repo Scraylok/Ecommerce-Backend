@@ -1,4 +1,4 @@
-import { ManagerMongoDB } from "../../../db/mongoDBManager.js";
+import { ManagerMongoDB } from "../../../db/managerMongoDB.js";
 import { Schema } from "mongoose";
 
 const cartSchema = new Schema({
@@ -18,9 +18,9 @@ export class ManagerCartMongoDB extends ManagerMongoDB {
 
     async addProductCart(id, idProd, cant) {
         super.setConnection()
-        const carrito = await this.model.findById(id)
-        carrito.products.push({ id_prod: idProd, quantity: cant })
-        return carrito.save()
+        const cart = await this.model.findById(id)
+        cart.products.push({ id_prod: idProd, quantity: cant })
+        return cart.save()
     }
 
     async getProductsCart() {
@@ -31,35 +31,35 @@ export class ManagerCartMongoDB extends ManagerMongoDB {
 
     async deleteProductCart(id) {
         super.setConnection()
-        const carrito = await this.model.findById(id)
-        carrito.products.filter(prod => prod._id != id)
-        carrito.save()
+        const cart = await this.model.findById(id)
+        cart.products.filter(prod => prod._id != id)
+        cart.save()
         return true
     }
 
     async deleteProductsCart(id) {
         super.setConnection()
-        const carrito = await this.model.findById(id)
-        carrito.products = []
-        carrito.save()
+        const cart = await this.model.findById(id)
+        cart.products = []
+        cart.save()
         return true
     }
 
     async updateProductCart(id, ...propiedades) {
         super.setConnection()
-        const carrito = await this.model.findById(id)
+        const cart = await this.model.findById(id)
         const aux = { ...propiedades }
-        carrito.products.findIndex(prod => prod._id == id)
-        carrito[index] = aux
-        carrito.save()
+        cart.products.findIndex(prod => prod._id == id)
+        cart[index] = aux
+        cart.save()
         return true
     }
 
     async updateProductsCart(id, products) {
         super.setConnection()
-        const carrito = await this.model.findById(id)
-        carrito.products = products
-        carrito.save()
+        const cart = await this.model.findById(id)
+        cart.products = products
+        cart.save()
         return true
     }
 
