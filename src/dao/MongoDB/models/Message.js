@@ -1,6 +1,7 @@
 import { Schema } from "mongoose";
 import { ManagerMongoDB } from "../../../db/managerMongoDB.js";
 
+const url = process.env.URLMONGODB
 
 const messageSchema = new Schema ({
     nombre: String,
@@ -15,7 +16,7 @@ const messageSchema = new Schema ({
 class ManagerMessageMongoDB extends ManagerMongoDB {
     constructor() {
 
-        super(process.env.URLMONGODB, "message", messageSchema)
+        super(url, "message", messageSchema)
         
     }
 }

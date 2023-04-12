@@ -1,6 +1,8 @@
 import { ManagerMongoDB } from "../../../db/managerMongoDB.js";
 import { Schema } from "mongoose";
 
+const url = process.env.URLMONGODB
+
 const cartSchema = new Schema({
     products: [{
         id_prod: {
@@ -13,7 +15,7 @@ const cartSchema = new Schema({
 
 class ManagerCartMongoDB extends ManagerMongoDB {
     constructor() {
-        super(process.env.URLMONGODB, "cart", cartSchema)
+        super(url, "cart", cartSchema)
     }
 
     async addProductCart(id, idProd, cant) {
