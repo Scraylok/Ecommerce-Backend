@@ -1,11 +1,9 @@
 import { getManagerProducts } from "../dao/daoManager.js";
-
+import ManagerProductMongoDB  from "../dao/MongoDB/models/Product.js"
 
 
 const data = await getManagerProducts()
-console.log(data)
 const productManager = new data.ManagerProductMongoDB
-console.log(productManager)
 
 
 export const getProducts = async (req, res) => {

@@ -2,7 +2,7 @@ import { Schema } from "mongoose";
 import { ManagerMongoDB } from "../../../db/managerMongoDB.js";
 import paginate from 'mongoose-paginate-v2'
 
-const url = process.env.URLMONGODB
+
 
 const productSchema = new Schema ({
     title: {
@@ -40,13 +40,13 @@ const productSchema = new Schema ({
 
 productSchema.plugin(paginate)
 
-export class ManagerProductMongoDB extends ManagerMongoDB {
+class ManagerProductMongoDB extends ManagerMongoDB {
     
     constructor() {
-        super(url, "products", productSchema)
+        super(process.env.URLMONGODB, "products", productSchema)
         }
     async getProducts(limit, page, filter, ord) {
-        super.setconnection()
+        super.setConnection()
         try {
             const products = await this.model.paginate({ filter: filter }, { limit: limit, page: page, sort: { price: ord } })
             return products;
@@ -56,4 +56,5 @@ export class ManagerProductMongoDB extends ManagerMongoDB {
     }
 
 }
+export default ManagerProductMongoDB
 console.log(ManagerProductMongoDB)

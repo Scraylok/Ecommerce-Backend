@@ -59,4 +59,4 @@ export class ManagerMongoDB {
   }
 }
 
-
+console.log(ManagerMongoDB)

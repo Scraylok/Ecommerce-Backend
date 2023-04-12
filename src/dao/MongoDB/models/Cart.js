@@ -11,9 +11,9 @@ const cartSchema = new Schema({
     }]
 })
 
-export class ManagerCartMongoDB extends ManagerMongoDB {
+class ManagerCartMongoDB extends ManagerMongoDB {
     constructor() {
-        super(process.env.MONGODBURL, "cart", cartSchema)
+        super(process.env.URLMONGODB, "cart", cartSchema)
     }
 
     async addProductCart(id, idProd, cant) {
@@ -64,3 +64,4 @@ export class ManagerCartMongoDB extends ManagerMongoDB {
     }
 
 }
+export default ManagerCartMongoDB

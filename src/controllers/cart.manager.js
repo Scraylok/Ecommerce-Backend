@@ -1,5 +1,5 @@
 import { getManagerCart } from "../dao/daoManager.js";
-
+import  ManagerCartMongoDB  from "../dao/MongoDB/models/Cart.js";
 
 const data = await getManagerCart()
 const managerCart = new data.ManagerCartMongoDB
